@@ -15,7 +15,7 @@ python main.py https://bit.ly/3NmOOK5
 ```
 ### How to install
 
-1. For make it work you want to create bitly api token. You can generate it in bitly website - https://app.bitly.com/settings/api/
+1. For make it works you want to create bitly api token. You can generate it in bitly website - https://app.bitly.com/settings/api/
 2. Create .env file in utility work directory
 3. Enter in .env file one line:
 ```
