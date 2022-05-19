@@ -6,7 +6,7 @@ import argparse
 load_dotenv()
 
 
-def get_argument():
+def get_link():
     parser = argparse.ArgumentParser(
         description='Bitly console utility'
     )
@@ -55,16 +55,14 @@ def is_bitlink(token, user_url):
 
 if __name__ == '__main__':
     bitly_token = os.environ['BITLY_TOKEN']
-    user_url = get_argument()
+    user_url = get_link()
     parsed_url = urlparse(user_url)
     try:
-        trimmed_url = f"{parsed_url.hostname}{parsed_url.path}"
+        trimmed_url = f"{parsed_url.netloc}{parsed_url.path}"
     except TypeError:
         raise SystemExit("Не верно введена ссылка")
     try:
-        if(is_bitlink(bitly_token, trimmed_url)):
-            parsed_url = urlparse(user_url)
-            trimmed_url = f"{parsed_url.netloc}{parsed_url.path}"
+        if is_bitlink(bitly_token, trimmed_url):
             counter = count_clicks(bitly_token, trimmed_url)
             print("Вы ввели уже существующую ссылку с bitly.")
             print(f"По этой ссылке перешли {counter} раз.")
@@ -73,4 +71,5 @@ if __name__ == '__main__':
             print("Вы ввели ссылку на сайт для сокращения ее на bitly")
             print('Вот ее битлинк:', bitlink)
     except requests.exceptions.HTTPError:
+            print(trimmed_url)
             raise SystemExit("Возникли проблемы с подключением к bitly")
